@@ -1,7 +1,11 @@
 import express, { Express } from "express";
+import { connectToDatabase } from "./database";
 
 const app: Express = express();
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+const port: string = process.env.PORT || "3000";
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+  connectToDatabase();
 });

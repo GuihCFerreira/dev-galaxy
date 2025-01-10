@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model StarSystems {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  planets     Planets[]
+}
+
+model Planets {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  climate      String
+  terrain      String
+  starSystem   StarSystems  @relation(fields: [starSystemId], references: [id])
+  starSystemId String       @db.ObjectId
+  Characters   Characters[]
+}
+
+model Spaceships {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  model        String
+  passengers   Int
+  manufacturer String
+}
+
+model Characters {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  race         Int
+  affiliation  Affiliation
+  homePlanet   Planets     @relation(fields: [homePlanetId], references: [id])
+  homePlanetId String      @db.ObjectId
+}
+
+enum Affiliation {
+  REBEL
+  EMPIRE
+  JEDI
+  SITH
+  BOUNTY_HUNTER
+  SMUGGLER
+  TRADE_FEDERATION
+  GALACTIC_REPUBLIC
+  SEPARATISTS
+  FIRST_ORDER
+  RESISTANCE
+}
