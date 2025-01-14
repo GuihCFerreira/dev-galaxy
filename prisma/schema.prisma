@@ -27,7 +27,7 @@ model Planets {
   terrain      String
   starSystem   StarSystems  @relation(fields: [starSystemId], references: [id])
   starSystemId String       @db.ObjectId
-  Characters   Characters[]
+  characters   Characters[]
 }
 
 model Spaceships {
@@ -41,7 +41,7 @@ model Spaceships {
 model Characters {
   id           String      @id @default(auto()) @map("_id") @db.ObjectId
   name         String
-  race         Int
+  race         Race
   affiliation  Affiliation
   homePlanet   Planets     @relation(fields: [homePlanetId], references: [id])
   homePlanetId String      @db.ObjectId
@@ -59,4 +59,36 @@ enum Affiliation {
   SEPARATISTS
   FIRST_ORDER
   RESISTANCE
+}
+
+enum Race {
+  HUMAN
+  TWILEK
+  WOOKIEE
+  RODIAN
+  ZABRAK
+  MON_CALAMARI
+  EWOK
+  TOGRUTA
+  CHISS
+  NAUTOLAN
+  JAWA
+  KEL_DOR
+  TRANDOSHAN
+  GAMORREAN
+  DEVARONIAN
+  FALLEN
+  DATHOMIRIAN
+  MIRIALAN
+  PANTORAN
+  QUARREN
+  SULLUSTAN
+  ITHORIAN
+  GEONOSIAN
+  KAMINOAN
+  PAU_AN
+  BESALISK
+  UMBARAN
+  NEIMOIDIAN
+  CLAWDITE
 }

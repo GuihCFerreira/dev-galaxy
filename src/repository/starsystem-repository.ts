@@ -2,13 +2,20 @@ import { StarSystems } from "@prisma/client";
 import { db } from "../database/prisma";
 
 const getAll = async () => {
-  return db.starSystems.findMany();
+  return db.starSystems.findMany({
+    include: {
+      planets: true,
+    },
+  });
 };
 
 const getById = async (id: string) => {
   return db.starSystems.findUnique({
     where: {
       id,
+    },
+    include: {
+      planets: true,
     },
   });
 };
