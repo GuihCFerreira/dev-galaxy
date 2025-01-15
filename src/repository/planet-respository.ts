@@ -3,9 +3,16 @@ import { db } from "../database/prisma";
 
 const getAll = async () => {
   return db.planets.findMany({
+    omit: {
+      starSystemId: true,
+    },
     include: {
       starSystem: true,
-      characters: true,
+      characters: {
+        omit: {
+          homePlanetId: true,
+        },
+      },
     },
   });
 };
@@ -15,9 +22,16 @@ const getById = async (id: string) => {
     where: {
       id,
     },
+    omit: {
+      starSystemId: true,
+    },
     include: {
       starSystem: true,
-      characters: true,
+      characters: {
+        omit: {
+          homePlanetId: true,
+        },
+      },
     },
   });
 };

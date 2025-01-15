@@ -9,15 +9,10 @@ const getAll = async () => {
     include: {
       homePlanet: {
         include: {
-          starSystem: {
-            omit: {
-              id: true,
-            },
-          },
+          starSystem: true,
         },
         omit: {
           starSystemId: true,
-          id: true,
         },
       },
     },
@@ -35,15 +30,10 @@ const getById = async (id: string) => {
     include: {
       homePlanet: {
         include: {
-          starSystem: {
-            omit: {
-              id: true,
-            },
-          },
+          starSystem: true,
         },
         omit: {
           starSystemId: true,
-          id: true,
         },
       },
     },
@@ -56,15 +46,10 @@ const create = async (character: Characters) => {
     include: {
       homePlanet: {
         include: {
-          starSystem: {
-            omit: {
-              id: true,
-            },
-          },
+          starSystem: true,
         },
         omit: {
           starSystemId: true,
-          id: true,
         },
       },
     },
