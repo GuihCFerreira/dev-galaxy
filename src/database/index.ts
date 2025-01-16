@@ -3,8 +3,8 @@ import { db } from "./prisma";
 export const connectToDatabase = async () => {
   try {
     await db.$connect();
-    console.log("Conexão com o banco de dados estabelecida com sucesso!");
+    console.log("Successfully connected to the database!");
   } catch (error) {
-    console.error("Erro ao conectar ao banco de dados:", error);
+    console.error("Error connecting to the database:", error);
   }
 };

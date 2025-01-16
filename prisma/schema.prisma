@@ -47,6 +47,13 @@ model Characters {
   homePlanetId String      @db.ObjectId
 }
 
+model Users {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  email       String      @unique
+  password    String
+  affiliation Affiliation
+}
+
 enum Affiliation {
   REBEL
   EMPIRE
