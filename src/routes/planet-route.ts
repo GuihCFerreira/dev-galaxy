@@ -6,13 +6,14 @@ import {
   getPlanetById,
   updatePlanet,
 } from "../controller/planet-controller";
+import { verifyIdParam } from "../middleware/verifiy-id-param";
 
 const planetRouter = Router();
 
 planetRouter.get("/", getAllPlanets);
-planetRouter.get("/:id", getPlanetById);
+planetRouter.get("/:id", verifyIdParam, getPlanetById);
 planetRouter.post("/", createPlanet);
-planetRouter.put("/:id", updatePlanet);
-planetRouter.delete("/:id", deletePlanet);
+planetRouter.put("/:id", verifyIdParam, updatePlanet);
+planetRouter.delete("/:id", verifyIdParam, deletePlanet);
 
 export { planetRouter };

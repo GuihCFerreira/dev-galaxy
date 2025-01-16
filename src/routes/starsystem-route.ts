@@ -6,13 +6,14 @@ import {
   getStarsystemById,
   updateStarsystem,
 } from "../controller/starsystem-controller";
+import { verifyIdParam } from "../middleware/verifiy-id-param";
 
 const starsystemRouter = Router();
 
 starsystemRouter.get("/", getAllStarsystems);
-starsystemRouter.get("/:id", getStarsystemById);
+starsystemRouter.get("/:id", verifyIdParam, getStarsystemById);
 starsystemRouter.post("/", createStarsystem);
-starsystemRouter.put("/:id", updateStarsystem);
-starsystemRouter.delete("/:id", deleteStarsystem);
+starsystemRouter.put("/:id", verifyIdParam, updateStarsystem);
+starsystemRouter.delete("/:id", verifyIdParam, deleteStarsystem);
 
 export { starsystemRouter };

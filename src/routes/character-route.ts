@@ -6,13 +6,14 @@ import {
   getCharacterById,
   updateCharacter,
 } from "../controller/character-controller";
+import { verifyIdParam } from "../middleware/verifiy-id-param";
 
 const characterRouter = Router();
 
 characterRouter.get("/", getAllCharacters);
-characterRouter.get("/:id", getCharacterById);
+characterRouter.get("/:id", verifyIdParam, getCharacterById);
 characterRouter.post("/", createCharacter);
-characterRouter.put("/:id", updateCharacter);
-characterRouter.delete("/:id", deleteCharacter);
+characterRouter.put("/:id", verifyIdParam, updateCharacter);
+characterRouter.delete("/:id", verifyIdParam, deleteCharacter);
 
 export { characterRouter };
