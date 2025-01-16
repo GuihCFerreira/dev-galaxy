@@ -4,13 +4,14 @@ import { spaceshipRouter } from "./spaceship-route";
 import { starsystemRouter } from "./starsystem-route";
 import { characterRouter } from "./character-route";
 import { userRouter } from "./user-route";
+import { authMiddleware } from "../middleware/auth-midlleware";
 
 const router = Router();
 
-router.use("/planets", planetRouter);
-router.use("/spaceships", spaceshipRouter);
-router.use("/star-systems", starsystemRouter);
-router.use("/characters", characterRouter);
-router.use("/user", userRouter);
+router.use("/planets", authMiddleware, planetRouter);
+router.use("/spaceships", authMiddleware, spaceshipRouter);
+router.use("/star-systems", authMiddleware, starsystemRouter);
+router.use("/characters", authMiddleware, characterRouter);
+router.use("/user", authMiddleware, userRouter);
 
 export { router };
