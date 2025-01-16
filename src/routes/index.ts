@@ -12,6 +12,6 @@ router.use("/planets", authMiddleware, planetRouter);
 router.use("/spaceships", authMiddleware, spaceshipRouter);
 router.use("/star-systems", authMiddleware, starsystemRouter);
 router.use("/characters", authMiddleware, characterRouter);
-router.use("/user", authMiddleware, userRouter);
+router.use("/user", userRouter);
 
 export { router };
