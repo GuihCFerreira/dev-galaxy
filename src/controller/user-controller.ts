@@ -4,11 +4,17 @@ import {
   signInUser,
 } from "../repository/user-repository";
 import { createNewUser, login } from "../service/user-service";
+import { NotFoundError } from "../error/not-found-error";
 
 const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const userLogged = await login(email, password);
+
+  if (userLogged instanceof NotFoundError) {
+    res.status(404).json({ error: userLogged.message });
+    return;
+  }
 
   if (userLogged instanceof Error) {
     res.status(400).json({ error: userLogged.message });

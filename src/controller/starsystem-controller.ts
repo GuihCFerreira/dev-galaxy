@@ -6,6 +6,8 @@ import {
   getById,
   update,
 } from "../repository/starsystem-repository";
+import { findStarsystemByID } from "../service/starsytem-service";
+import { NotFoundError } from "../error/not-found-error";
 
 const getAllStarsystems = async (req: Request, res: Response) => {
   res.status(200).json(await getAll());
@@ -13,6 +15,14 @@ const getAllStarsystems = async (req: Request, res: Response) => {
 
 const getStarsystemById = async (req: Request, res: Response) => {
   const { id } = req.params;
+
+  const starsystem = await findStarsystemByID(id);
+
+  if (starsystem instanceof NotFoundError) {
+    res.status(404).json({ error: starsystem.message });
+    return;
+  }
+
   res.status(200).json(await getById(id));
 };
 

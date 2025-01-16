@@ -2,6 +2,7 @@ import { Users } from "@prisma/client";
 import { findUserByEmail, signInUser } from "../repository/user-repository";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { NotFoundError } from "../error/not-found-error";
 
 const createNewUser = async (user: Users) => {
   const userExists = await findUserByEmail(user.email);
@@ -27,7 +28,7 @@ const login = async (email: string, password: string) => {
   const user = await findUserByEmail(email);
 
   if (!user) {
-    return Error("User not found");
+    return new NotFoundError("User not found");
   }
 
   const passwordMatch = await bcrypt.compare(password, user.password);

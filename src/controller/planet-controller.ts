@@ -6,6 +6,8 @@ import {
   getById,
   update,
 } from "../repository/planet-respository";
+import { findPlanetByID } from "../service/planet-service";
+import { NotFoundError } from "../error/not-found-error";
 
 const getAllPlanets = async (req: Request, res: Response) => {
   res.status(200).json(await getAll());
@@ -13,6 +15,14 @@ const getAllPlanets = async (req: Request, res: Response) => {
 
 const getPlanetById = async (req: Request, res: Response) => {
   const { id } = req.params;
+
+  const planet = await findPlanetByID(id);
+
+  if (planet instanceof NotFoundError) {
+    res.status(404).json({ error: planet.message });
+    return;
+  }
+
   res.status(200).json(await getById(id));
 };
 
