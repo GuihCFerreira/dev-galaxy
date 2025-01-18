@@ -1,8 +1,4 @@
 import { Request, Response } from "express";
-import {
-  findUserByEmailAndPassword,
-  signInUser,
-} from "../repository/user-repository";
 import { createNewUser, login } from "../service/user-service";
 import { NotFoundError } from "../error/not-found-error";
 

@@ -1,5 +1,10 @@
+import { StarSystems } from "@prisma/client";
 import { NotFoundError } from "../error/not-found-error";
-import { getById } from "../repository/starsystem-repository";
+import {
+  deleteStarsystemById,
+  getById,
+  update,
+} from "../repository/starsystem-repository";
 
 const findStarsystemByID = async (id: string) => {
   const starsystem = await getById(id);
@@ -11,4 +16,28 @@ const findStarsystemByID = async (id: string) => {
   return starsystem;
 };
 
-export { findStarsystemByID };
+const updateStarsystemById = async (id: string, body: StarSystems) => {
+  const starsystem = await getById(id);
+
+  if (!starsystem) {
+    return new NotFoundError("Starsystem not found");
+  }
+
+  const updatedStarsystem = await update(id, body);
+
+  return updatedStarsystem;
+};
+
+const deleteStarsystemId = async (id: string) => {
+  const starsystem = await getById(id);
+
+  if (!starsystem) {
+    return new NotFoundError("Starsystem not found");
+  }
+
+  const deletedStarsystem = await deleteStarsystemById(id);
+
+  return deletedStarsystem;
+};
+
+export { findStarsystemByID, updateStarsystemById, deleteStarsystemId };
