@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.planetRouter = void 0;
+const express_1 = require("express");
+const planet_controller_1 = require("../controller/planet-controller");
+const verifiy_id_param_1 = require("../middleware/verifiy-id-param");
+const validate_input_1 = require("../middleware/validate-input");
+const planet_schema_1 = require("../schemas/planet-schema");
+const planetRouter = (0, express_1.Router)();
+exports.planetRouter = planetRouter;
+planetRouter.get("/", planet_controller_1.getAllPlanets);
+planetRouter.get("/:id", verifiy_id_param_1.verifyIdParam, planet_controller_1.getPlanetById);
+planetRouter.post("/", (0, validate_input_1.validadeInput)(planet_schema_1.createPlanetSchema), planet_controller_1.createPlanet);
+planetRouter.put("/:id", verifiy_id_param_1.verifyIdParam, (0, validate_input_1.validadeInput)(planet_schema_1.updatePlanetSchema), planet_controller_1.updatePlanet);
+planetRouter.delete("/:id", verifiy_id_param_1.verifyIdParam, planet_controller_1.deletePlanet);

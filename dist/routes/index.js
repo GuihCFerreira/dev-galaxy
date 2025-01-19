@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const planet_route_1 = require("./planet-route");
+const spaceship_route_1 = require("./spaceship-route");
+const starsystem_route_1 = require("./starsystem-route");
+const character_route_1 = require("./character-route");
+const user_route_1 = require("./user-route");
+const auth_midlleware_1 = require("../middleware/auth-midlleware");
+const router = (0, express_1.Router)();
+exports.router = router;
+router.use("/planets", auth_midlleware_1.authMiddleware, planet_route_1.planetRouter);
+router.use("/spaceships", auth_midlleware_1.authMiddleware, spaceship_route_1.spaceshipRouter);
+router.use("/star-systems", auth_midlleware_1.authMiddleware, starsystem_route_1.starsystemRouter);
+router.use("/characters", auth_midlleware_1.authMiddleware, character_route_1.characterRouter);
+router.use("/user", user_route_1.userRouter);

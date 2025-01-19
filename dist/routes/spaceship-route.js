@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.spaceshipRouter = void 0;
+const express_1 = require("express");
+const spaceship_controller_1 = require("../controller/spaceship-controller");
+const verifiy_id_param_1 = require("../middleware/verifiy-id-param");
+const validate_input_1 = require("../middleware/validate-input");
+const spaceship_schema_1 = require("../schemas/spaceship-schema");
+const spaceshipRouter = (0, express_1.Router)();
+exports.spaceshipRouter = spaceshipRouter;
+spaceshipRouter.get("/", spaceship_controller_1.getAllSpaceships);
+spaceshipRouter.get("/:id", verifiy_id_param_1.verifyIdParam, spaceship_controller_1.getSpaceshipById);
+spaceshipRouter.post("/", (0, validate_input_1.validadeInput)(spaceship_schema_1.createSpaceshipSchema), spaceship_controller_1.createSpaceship);
+spaceshipRouter.put("/:id", verifiy_id_param_1.verifyIdParam, (0, validate_input_1.validadeInput)(spaceship_schema_1.updateSpaceshipSchema), spaceship_controller_1.updateSpaceship);
+spaceshipRouter.delete("/:id", verifiy_id_param_1.verifyIdParam, spaceship_controller_1.deleteSpaceship);

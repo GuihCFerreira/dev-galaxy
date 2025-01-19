@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.starsystemRouter = void 0;
+const express_1 = require("express");
+const starsystem_controller_1 = require("../controller/starsystem-controller");
+const verifiy_id_param_1 = require("../middleware/verifiy-id-param");
+const validate_input_1 = require("../middleware/validate-input");
+const starsystem_schema_1 = require("../schemas/starsystem-schema");
+const starsystemRouter = (0, express_1.Router)();
+exports.starsystemRouter = starsystemRouter;
+starsystemRouter.get("/", starsystem_controller_1.getAllStarsystems);
+starsystemRouter.get("/:id", verifiy_id_param_1.verifyIdParam, starsystem_controller_1.getStarsystemById);
+starsystemRouter.post("/", (0, validate_input_1.validadeInput)(starsystem_schema_1.createStarSystemSchema), starsystem_controller_1.createStarsystem);
+starsystemRouter.put("/:id", verifiy_id_param_1.verifyIdParam, (0, validate_input_1.validadeInput)(starsystem_schema_1.updateStarSystemSchema), starsystem_controller_1.updateStarsystem);
+starsystemRouter.delete("/:id", verifiy_id_param_1.verifyIdParam, starsystem_controller_1.deleteStarsystem);

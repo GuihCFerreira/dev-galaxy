@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.characterRouter = void 0;
+const express_1 = require("express");
+const character_controller_1 = require("../controller/character-controller");
+const verifiy_id_param_1 = require("../middleware/verifiy-id-param");
+const validate_input_1 = require("../middleware/validate-input");
+const character_schema_1 = require("../schemas/character-schema");
+const characterRouter = (0, express_1.Router)();
+exports.characterRouter = characterRouter;
+characterRouter.get("/", character_controller_1.getAllCharacters);
+characterRouter.get("/:id", verifiy_id_param_1.verifyIdParam, character_controller_1.getCharacterById);
+characterRouter.post("/", (0, validate_input_1.validadeInput)(character_schema_1.createCharacterSchema), character_controller_1.createCharacter);
+characterRouter.put("/:id", verifiy_id_param_1.verifyIdParam, (0, validate_input_1.validadeInput)(character_schema_1.updateCharacterSchema), character_controller_1.updateCharacter);
+characterRouter.delete("/:id", verifiy_id_param_1.verifyIdParam, character_controller_1.deleteCharacter);
